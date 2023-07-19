@@ -7,8 +7,12 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from dataclasses import dataclass
 
+from src.components.data_transformation import DataTransformation
+from src.components.data_transformation import DataTransformationConfig
+
 # we are making this class because we might need some input like log in id or password
 # @dataclass is a decorator( which allow us to wrap another function in order to use the behaviour of the wrapped function without modifying it)
+# these are the inputs required
 @dataclass
 class DataIngestionConfig:
     # our raww,training and test file will be saved in the artifacts folder
@@ -47,4 +51,7 @@ class DataIngestion:
         
 if __name__=="__main__":
     obj=DataIngestion()
-    obj.initiate_data_ingestion()
+    train_data,test_data=obj.initiate_data_ingestion()
+
+    data_transformation=DataTransformation()
+    data_transformation.initiate_data_transformation(train_data,test_data)
